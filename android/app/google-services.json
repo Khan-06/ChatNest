@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "344567421268",
+    "project_id": "chatnest-59ea6",
+    "storage_bucket": "chatnest-59ea6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344567421268:android:507f790f84e819d47450c1",
+        "android_client_info": {
+          "package_name": "com.example.messenger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ1lnAW5g3UgJFbk4l971msBZ6uLuT2Ss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
