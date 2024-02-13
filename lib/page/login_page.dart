@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../components/my_text_field.dart';
+import '../services/auth/auth_services.dart';
 import '../components/my_button.dart';
 
 class LogInPage extends StatefulWidget {
@@ -12,16 +14,22 @@ class LogInPage extends StatefulWidget {
 }
 
 class _LogInPageState extends State<LogInPage> {
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   FocusNode passwordFocusNode = FocusNode();
   static const backgroundColor = Color.fromRGBO(204, 201, 220, 1);
 
-
   //logIn logic
-  void logIn() {
+  void logIn() async {
     // Add your log-in logic here
+    final authService = Provider.of<AuthService>(context, listen: false);
+    try {
+      await authService.signInWithEmailAndPassword(
+          emailController.text, passwordController.text);
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 
   @override
@@ -59,7 +67,7 @@ class _LogInPageState extends State<LogInPage> {
                 hintText: 'Email',
               ),
               MyTextField(
-                nextFocusNode: null,
+                  nextFocusNode: null,
                   controller: passwordController,
                   obscureText: true,
                   hintText: 'Password'),
@@ -69,7 +77,7 @@ class _LogInPageState extends State<LogInPage> {
                 mytext: 'Sign In',
               ),
               const SizedBox(height: 40.0),
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text('Not a member?'),
