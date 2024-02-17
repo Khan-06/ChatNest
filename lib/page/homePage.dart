@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text('Home Page')), actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.logout))],),
+      appBar: AppBar(title: const Center(child: Text('Home Page')), actions: [IconButton(onPressed: signOut, icon: const Icon(Icons.logout))],),
     );
   }
 }
