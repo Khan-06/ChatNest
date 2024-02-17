@@ -27,7 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
   //sign in logic
   void signUp() async {
     // Add your sign-in logic here
-    if(passwordController != confirmPasswordController){
+    if(passwordController.text != confirmPasswordController.text){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password do not match!'),),);
       return;
     } else {
