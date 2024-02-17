@@ -1,28 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../components/my_button.dart';
 import '../components/my_text_field.dart';
+import '../services/auth/auth_services.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
   RegisterPage({Key? key, required this.onTap}) : super(key: key);
 
+  static const backgroundColor = Color.fromRGBO(204, 201, 220, 1);
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
   FocusNode confirmPasswordFocusNode = FocusNode();
-  static const backgroundColor = Color.fromRGBO(204, 201, 220, 1);
 
   //sign in logic
-  void signUp() {
+  void signUp() async {
     // Add your sign-in logic here
+    if(passwordController != confirmPasswordController){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password do not match!'),),);
+      return;
+    } else {
+      final authService = Provider.of<AuthService>(context, listen: false);
+      try{
+        await authService.signOutWithEmailAndPassword(emailController.text, passwordController.text);
+      } catch(e){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
-      appBar: AppBar(backgroundColor: backgroundColor),
+      backgroundColor: RegisterPage.backgroundColor,
+      appBar: AppBar(backgroundColor: RegisterPage.backgroundColor),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -72,7 +94,7 @@ class RegisterPage extends StatelessWidget {
                     width: 5.0,
                   ),
                   GestureDetector(
-                      onTap: onTap,
+                      onTap: widget.onTap,
                       child: const Text(
                     'Log In!',
                     style: TextStyle(fontWeight: FontWeight.bold),
